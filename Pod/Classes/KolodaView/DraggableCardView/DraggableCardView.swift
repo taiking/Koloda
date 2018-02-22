@@ -27,6 +27,7 @@ protocol DraggableCardDelegate: class {
     func card(cardAllowedDirections card: DraggableCardView) -> [SwipeResultDirection]
     func card(cardShouldDrag card: DraggableCardView) -> Bool
     func card(cardSwipeSpeed card: DraggableCardView) -> DragSpeed
+    func card(cardDidDrag card: DraggableCardView)
 }
 
 //Drag animation constants
@@ -264,7 +265,7 @@ public class DraggableCardView: UIView, UIGestureRecognizerDelegate {
             swipeMadeAction()
             
             layer.shouldRasterize = false
-            
+            self.delegate?.card(cardDidDrag: self)
         default:
             layer.shouldRasterize = false
             resetViewPositionAndTransformations()
